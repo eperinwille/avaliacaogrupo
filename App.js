@@ -4,7 +4,12 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import MainScreen from './screens/MainScreen';
 
 const AppStack = createStackNavigator({
-  Main: MainScreen
+  Main: {
+    screen: MainScreen,
+    navigationOptions: {
+      header: null
+    }
+  }
 });
 
 const Navigation = createAppContainer(AppStack);
