@@ -1,13 +1,40 @@
-import React from 'React';
-import { View, Text, StyleSheet } from 'react-native'
-import { Container, Tabs, Tab } from 'native-base'
+import React, { useState, useEffect } from 'React';
+import { View, Text, StyleSheet, Image } from 'react-native'
+import { Icon } from 'react-native-elements';
+import { Container, Content, Tabs, Tab } from 'native-base'
+import { Col, Row, Grid } from 'react-native-easy-grid';
+import axios from 'axios';
+import Issue from '../components/Issue';
 
 const RepositoryScreen = props => {
+    const repo = props.navigation.getParam('repo');
+
+    const [ issues, setIssues ] = useState([]);
+
+    const getIssues = async () => {
+        let response = await axios.get(`https://api.github.com/repos/${repo.full_name}/issues`);
+        setIssues(response.data);
+    }
+
+    useEffect(() => {
+        getIssues();        
+    }, []);
+
     return (
-        <Container>
+        <Container style={styles.container}>
+            <Image source={{ uri: repo.owner.avatar_url }} style={{width: 80, height: 80, borderRadius: 40}}/>
+            <Text>{repo.full_name}</Text>
+            <View style={styles.stars}>
+                <Text>{repo.stargazers_count}</Text>
+                <Icon name="star"/>
+            </View>
             <Tabs>
                 <Tab heading="ISSUES">
-                    <Text>issues</Text>
+                    <Content>
+                        {issues.map((issue, i) => (
+                            <Issue key={i} issue={issue}/>
+                        ))}
+                    </Content>
                 </Tab>
 
                 <Tab heading="PULL REQUESTS">
@@ -24,8 +51,16 @@ const RepositoryScreen = props => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        marginTop: 20
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+
+    stars: {
+        flexShrink: 0,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        height: 20
     }
 });
 

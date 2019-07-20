@@ -12,16 +12,19 @@ const AppStack = createStackNavigator({
   Main: {
     screen: MainScreen,
     navigationOptions: {
-      header: null
+      headerTitle: 'Buscar Repositórios'
     }
   },
 
   Repository: {
     screen: RepositoryScreen,
     navigationOptions: {
-      headerTitle: "usuario"
+      headerTitle: "Repositório"
     }
   }
+},
+{
+  headerLayoutPreset: 'center'
 });
 
 const Navigation = createAppContainer(AppStack);
