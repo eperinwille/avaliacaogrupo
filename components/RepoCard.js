@@ -9,6 +9,7 @@ const RepoCard = props => {
         leftAvatar={{ source: { uri: props.repo.owner.avatar_url } }}
         rightIcon={{ name: 'star'}}
         rightTitle={`${props.repo.stargazers_count}`}
+        onPress={props.onPress}
         />
     )
 }

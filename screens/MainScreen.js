@@ -30,12 +30,16 @@ const MainScreen = props => {
         setRepositories(result.data.items);
     }
 
+    const navigate = () => {
+        props.navigation.navigate('Repository');
+    }
+
     return (
         <View style={styles.container}>
             <SearchBar value={repositoryName} onChangeText={setRepositoryName}/>
             <ScrollView style={{flex:1}}>
             {repositories.map((repo, i) => (
-                <RepoCard key={i} repo={repo}/>
+                <RepoCard key={i} repo={repo} onPress={navigate}/>
             ))}
             </ScrollView>
         </View>
