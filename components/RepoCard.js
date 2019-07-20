@@ -4,11 +4,11 @@ import { ListItem } from 'react-native-elements';
 const RepoCard = props => {
     return (
       <ListItem
-        title="merda"
-        subtitle="Um repositório que só tem merda e não serve pra porra nenhuma"
-        leftAvatar={{ source: { uri: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg" } }}
+        title={props.repo.name}
+        subtitle={props.repo.description}
+        leftAvatar={{ source: { uri: props.repo.owner.avatar_url } }}
         rightIcon={{ name: 'star'}}
-        rightTitle="100"
+        rightTitle={`${props.repo.stargazers_count}`}
         />
     )
 }
